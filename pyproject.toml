@@ -1,6 +1,6 @@
 [project]
 name = "RuyimgBy-mcp-vision-server"
-version = "0.1.0"
+version = "0.1.1"
 description = "MCP server exposing OpenAI-compatible vision models (14 providers preset) as an image-understanding tool"
 requires-python = ">=3.10"
 license = {text = "Proprietary - Personal Use Only"}
