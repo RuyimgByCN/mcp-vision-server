@@ -1,0 +1,15 @@
+{
+  "name": "mcp-vision-server",
+  "description": "OpenAI 兼容的 vision 模型 MCP 服务，14 个供应商预设，支持 URL/本地文件/base64 图片输入",
+  "version": "0.1.0",
+  "mcpServers": {
+    "vision": {
+      "command": "uvx",
+      "args": ["mcp-vision-server"],
+      "env": {
+        "VISION_PROVIDER": "zhipu",
+        "VISION_API_KEY": "${VISION_API_KEY}"
+      }
+    }
+  }
+}
