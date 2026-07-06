@@ -69,6 +69,36 @@ export VISION_API_KEY=你的key
 
 改 `command` 为 `uvx`,`args` 改成 `["--from", "/绝对路径/mcp-vision-server", "mcp-vision-server"]`,`env` 同上。
 
+### Claude Code 插件安装
+
+```bash
+# PyPI 发布后
+claude plugins install RuyimgByCN/mcp-vision-server
+
+# 或本地测试
+claude plugins install /path/to/mcp-vision-server
+```
+
+### Codex (OpenAI Codex CLI)
+
+编辑 `~/.codex/config.toml`，添加 `[mcp_servers.vision]` 段:
+
+```toml
+[mcp_servers.vision]
+command = "uvx"
+args = ["mcp-vision-server"]
+env = { VISION_PROVIDER = "zhipu", VISION_API_KEY = "your_key" }
+```
+
+本地开发时也可用 `uv run`:
+
+```toml
+[mcp_servers.vision]
+command = "uv"
+args = ["run", "--directory", "/绝对路径/mcp-vision-server", "mcp-vision-server"]
+env = { VISION_PROVIDER = "zhipu", VISION_API_KEY = "your_key" }
+```
+
 ## 切换供应商示例
 
 ```json
