@@ -1,6 +1,6 @@
 {
   "name": "mcp-vision-server",
-  "description": "OpenAI 兼容的 vision 模型 MCP 服务，14 个供应商预设，支持 URL/本地文件/base64 图片输入",
+  "description": "OpenAI-compatible vision MCP server with 14 provider presets. Supports URL/local file/base64 image input. | 14 个供应商预设的 OpenAI 兼容 vision MCP 服务",
   "version": "0.1.0",
   "mcpServers": {
     "vision": {
