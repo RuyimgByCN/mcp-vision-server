@@ -5,7 +5,7 @@
   "mcpServers": {
     "vision": {
       "command": "uvx",
-      "args": ["RuyimgBy-mcp-vision-server"],
+      "args": ["--from", "RuyimgBy-mcp-vision-server", "mcp-vision-server"],
       "env": {
         "VISION_PROVIDER": "zhipu",
         "VISION_API_KEY": "${VISION_API_KEY}"
