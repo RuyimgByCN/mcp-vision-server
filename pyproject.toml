@@ -1,0 +1,22 @@
+[project]
+name = "mcp-vision-server"
+version = "0.1.0"
+description = "MCP server exposing GLM-5V-Turbo (or any OpenAI-compatible vision model) as an image-understanding tool"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp[cli]>=1.0",
+    "openai>=1.0",
+]
+
+[project.scripts]
+mcp-vision-server = "mcp_vision_server.server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["mcp_vision_server"]
+
+[dependency-groups]
+dev = ["pytest>=8.0"]
