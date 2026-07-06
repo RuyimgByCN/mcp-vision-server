@@ -1,12 +1,23 @@
 [project]
 name = "mcp-vision-server"
 version = "0.1.0"
-description = "MCP server exposing GLM-5V-Turbo (or any OpenAI-compatible vision model) as an image-understanding tool"
+description = "MCP server exposing OpenAI-compatible vision models (14 providers preset) as an image-understanding tool"
 requires-python = ">=3.10"
+license = {text = "MIT"}
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Intended Audience :: Developers",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
 dependencies = [
     "mcp[cli]>=1.0",
     "openai>=1.0",
 ]
+
+[project.urls]
+Repository = "https://github.com/RuyimgByCN/mcp-vision-server"
 
 [project.scripts]
 mcp-vision-server = "mcp_vision_server.server:main"
