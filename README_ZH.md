@@ -1,5 +1,10 @@
 # mcp-vision-server
 
+[![PyPI](https://img.shields.io/pypi/v/RuyimgBy-mcp-vision-server?label=PyPI&color=blue)](https://pypi.org/project/RuyimgBy-mcp-vision-server/)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-Personal%20Use%20Only-orange)](LICENSE)
+[![MCP](https://img.shields.io/badge/MCP-Server-6E29F6)](https://modelcontextprotocol.io/)
+
 14 个供应商预设的 OpenAI 兼容 vision MCP 服务。
 
 任何 MCP 客户端（Claude Code、Codex、Cursor、ZCode 等）接入后，需要"看图"时自动调用 —— 分析截图、识别内容、读图答题、UI 还原。
