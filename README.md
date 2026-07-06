@@ -117,3 +117,11 @@ Replace `command` with `uvx`, `args` with `["--from", "/path/to/mcp-vision-serve
   "VISION_MODEL": "your-model"
 }
 ```
+
+## About
+
+**Author:** [RuyimgByCN](https://github.com/RuyimgByCN)
+
+**License:** Personal use only. Commercial use is prohibited — see [LICENSE](LICENSE) for details. Contact the author for commercial licensing.
+
+**中文说明：** 个人使用免费，禁止商用。商业授权请联系作者。详见 [README_ZH.md](README_ZH.md)。

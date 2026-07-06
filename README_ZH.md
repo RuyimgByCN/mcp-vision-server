@@ -117,3 +117,11 @@ env = { VISION_PROVIDER = "zhipu", VISION_API_KEY = "your_key" }
   "VISION_MODEL": "your-model"
 }
 ```
+
+## 关于
+
+**作者：** [RuyimgByCN](https://github.com/RuyimgByCN)
+
+**开源协议：** 个人使用免费，**禁止商用**。详见 [LICENSE](LICENSE)。商业授权请联系作者。
+
+**English:** Free for personal use. Commercial use prohibited. See [README.md](README.md).

@@ -3,9 +3,9 @@ name = "mcp-vision-server"
 version = "0.1.0"
 description = "MCP server exposing OpenAI-compatible vision models (14 providers preset) as an image-understanding tool"
 requires-python = ">=3.10"
-license = {text = "MIT"}
+license = {text = "Proprietary - Personal Use Only"}
 classifiers = [
-    "License :: OSI Approved :: MIT License",
+    "License :: Free For Personal Use Only",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Intended Audience :: Developers",
