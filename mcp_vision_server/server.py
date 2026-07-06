@@ -157,7 +157,7 @@ def normalize_image(image: str, image_type: str = "auto") -> str:
         return _as_base64()
 
     # auto
-    if img.startswith(("http://", "https://")):
+    if img.startswith(("http://", "https://", "data:")):
         return _as_url()
     if os.path.exists(img):
         return _as_file()

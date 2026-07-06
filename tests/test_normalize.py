@@ -6,9 +6,10 @@ from mcp_vision_server.server import normalize_image
 
 
 def test_url_returned_as_is():
-    """http(s) URL 直接返回原字符串。"""
+    """http(s) URL 和 data: URI 直接返回原字符串。"""
     assert normalize_image("https://example.com/a.png") == "https://example.com/a.png"
     assert normalize_image("http://foo.bar/img.jpg") == "http://foo.bar/img.jpg"
+    assert normalize_image("data:image/png;base64,ABC123") == "data:image/png;base64,ABC123"
 
 
 def test_local_file_becomes_data_uri():
