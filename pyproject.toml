@@ -2,11 +2,15 @@
 name = "RuyimgBy-mcp-vision-server"
 version = "0.1.1"
 description = "MCP server exposing OpenAI-compatible vision models (14 providers preset) as an image-understanding tool"
+readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "Proprietary - Personal Use Only"}
+keywords = ["mcp", "vision", "openai", "claude", "cursor", "codex", "multimodal"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Intended Audience :: Developers",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
@@ -16,7 +20,9 @@ dependencies = [
 ]
 
 [project.urls]
+Homepage = "https://github.com/RuyimgByCN/mcp-vision-server"
 Repository = "https://github.com/RuyimgByCN/mcp-vision-server"
+Issues = "https://github.com/RuyimgByCN/mcp-vision-server/issues"
 
 [project.scripts]
 mcp-vision-server = "mcp_vision_server.server:main"
@@ -29,4 +35,26 @@ build-backend = "hatchling.build"
 packages = ["mcp_vision_server"]
 
 [dependency-groups]
-dev = ["pytest>=8.0"]
+dev = [
+    "build>=1.2",
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.8",
+    "twine>=5.0",
+]
+
+[tool.pytest.ini_options]
+addopts = "--cov=mcp_vision_server --cov-report=term-missing"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["B", "BLE", "E", "F", "I", "UP", "W"]
+ignore = ["E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"

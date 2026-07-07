@@ -17,6 +17,26 @@ Any MCP client (Claude Code, Codex, Cursor, ZCode…) can call it to "see" image
 - Switch providers via `VISION_PROVIDER` env var or `provider` parameter.
 - Override at both **env** and **tool parameter** levels.
 
+## Architecture
+
+```text
+MCP Client (Claude Code / Codex / Cursor / ZCode)
+        │
+        ▼
+mcp-vision-server
+        │
+        ├── mcp_vision_server/server.py     # MCP tool entrypoints
+        ├── mcp_vision_server/config.py     # env/provider/parameter resolution
+        ├── mcp_vision_server/image.py      # URL/file/base64 normalization
+        └── mcp_vision_server/providers.py  # provider presets
+        │
+        ▼
+OpenAI-compatible Vision API
+        │
+        ▼
+Vision model response
+```
+
 ## Install & Run
 
 Requires Python ≥ 3.10 and [uv](https://docs.astral.sh/uv/).
@@ -24,7 +44,8 @@ Requires Python ≥ 3.10 and [uv](https://docs.astral.sh/uv/).
 ```bash
 cd mcp-vision-server
 uv sync                  # install deps
-uv run pytest -v         # run tests (optional)
+uv run pytest -v         # run tests
+uv run ruff check .      # lint
 uv run mcp-vision-server # start stdio server
 ```
 
@@ -122,6 +143,31 @@ Replace `command` with `uvx`, `args` with `["--from", "/path/to/mcp-vision-serve
   "VISION_MODEL": "your-model"
 }
 ```
+
+## Development
+
+```bash
+uv sync --all-groups
+uv run ruff check .
+uv run ruff format .
+uv run pytest -v
+uv build
+uv run twine check dist/*
+```
+
+## Release checklist
+
+1. Update the version in `pyproject.toml`.
+2. Run `uv run ruff check .`, `uv run pytest -v`, `uv build`, and `uv run twine check dist/*`.
+3. Create and push a version tag, for example `v0.1.2`.
+4. Let GitHub Actions publish to PyPI through trusted publishing.
+
+## Roadmap
+
+- Add more provider presets when stable OpenAI-compatible vision endpoints are available.
+- Add richer examples for Claude Code, Codex, Cursor, and other MCP clients.
+- Add optional streaming response support if MCP client UX benefits from it.
+- Split provider-specific behavior into plugins only when providers require custom request logic.
 
 ## About
 

@@ -9,9 +9,13 @@ jobs:
   pypi:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write  # OIDC trusted publishing
+      id-token: write # OIDC trusted publishing
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
+      - run: uv sync --all-groups
+      - run: uv run ruff check .
+      - run: uv run pytest -v
       - run: uv build
+      - run: uv run twine check dist/*
       - uses: pypa/gh-action-pypi-publish@release/v1
