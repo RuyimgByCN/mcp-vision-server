@@ -5,37 +5,82 @@
 [![License](https://img.shields.io/badge/License-Personal%20Use%20Only-orange)](LICENSE)
 [![MCP](https://img.shields.io/badge/MCP-Server-6E29F6)](https://modelcontextprotocol.io/)
 
-OpenAI-compatible vision MCP server with 14 provider presets.
+One MCP server for every OpenAI-compatible vision model.
 
-Any MCP client (Claude Code, Codex, Cursor, ZCode…) can call it to "see" images — analyze screenshots, recognize content, read text, answer visual questions, restore UI from mockups.
+Configure once and use the same `analyze_image` tool across OpenAI, DeepSeek, OpenRouter, Zhipu, Bailian, SiliconFlow and other compatible providers. It works with Claude Code, Codex, Cursor, Zed and any other MCP client.
+
+## Why use mcp-vision-server?
+
+- ✅ **Works with any MCP client** – Claude Code, Codex, Cursor, Zed and more.
+- ✅ **Works with many providers** – switch providers without changing prompts or tool calls.
+- ✅ **One unified API** – one tool (`analyze_image`) for every OpenAI-compatible vision endpoint.
+- ✅ **Flexible image input** – URL, local file or Base64 are detected automatically.
+- ✅ **Override anywhere** – configure globally with environment variables or per request.
+
+## Quick Start
+
+1. Install the server.
+2. Set your provider and API key.
+3. Add the MCP server to your client.
+4. Ask:
+
+```text
+Describe this screenshot.
+```
+
+If everything is configured correctly, your MCP client will automatically call `analyze_image` and return the vision model's response.
 
 ## Features
 
-- Single tool `analyze_image`: pass an image + prompt, get text response.
-- Three image input types: **URL** / **local file** / **base64 string** (auto-detect).
-- **14 provider presets**: Zhipu, Bailian, DeepSeek, OpenAI, SiliconFlow, OpenRouter, Ark, StepFun, Kimi, MiniMax, ModelScope, NVIDIA NIM, Novita AI.
-- Switch providers via `VISION_PROVIDER` env var or `provider` parameter.
-- Override at both **env** and **tool parameter** levels.
+- Single `analyze_image` tool with a consistent interface.
+- Supports URL, local file and Base64 image inputs.
+- Supports 14 built-in provider presets.
+- Provider selection via `VISION_PROVIDER` or the `provider` parameter.
+- Environment-level and request-level configuration overrides.
 
-## Architecture
+## Example
+
+Ask your MCP client to analyze an image:
 
 ```text
-MCP Client (Claude Code / Codex / Cursor / ZCode)
-        │
-        ▼
-mcp-vision-server
-        │
-        ├── mcp_vision_server/server.py     # MCP tool entrypoints
-        ├── mcp_vision_server/config.py     # env/provider/parameter resolution
-        ├── mcp_vision_server/image.py      # URL/file/base64 normalization
-        └── mcp_vision_server/providers.py  # provider presets
-        │
-        ▼
-OpenAI-compatible Vision API
-        │
-        ▼
-Vision model response
+Analyze this screenshot and tell me what UI is shown.
 ```
+
+The client calls the MCP tool:
+
+```json
+{
+  "tool": "analyze_image",
+  "arguments": {
+    "image": "/path/to/screenshot.png",
+    "prompt": "Analyze this screenshot and tell me what UI is shown."
+  }
+}
+```
+
+The server normalizes the image input, sends it to the selected OpenAI-compatible vision provider, and returns a plain text answer to your MCP client.
+
+## Providers
+
+Built-in presets make common OpenAI-compatible vision endpoints easy to use:
+
+| Provider | Preset |
+|---|---|
+| Zhipu | `zhipu` |
+| Bailian / DashScope | `bailian` |
+| DeepSeek | `deepseek` |
+| OpenAI | `openai` |
+| SiliconFlow | `siliconflow` |
+| OpenRouter | `openrouter` |
+| Ark / Volcengine | `ark` |
+| StepFun | `stepfun` |
+| Kimi / Moonshot | `kimi` |
+| MiniMax | `minimax` |
+| ModelScope | `modelscope` |
+| NVIDIA NIM | `nvidia` |
+| Novita AI | `novita` |
+
+You can also use any other OpenAI-compatible vision endpoint by setting `VISION_BASE_URL`, `VISION_API_KEY`, and `VISION_MODEL` manually.
 
 ## Install & Run
 
@@ -58,7 +103,7 @@ export VISION_PROVIDER=zhipu     # default
 export VISION_API_KEY=your_key
 ```
 
-Supported presets: `zhipu` `bailian` `deepseek` `openai` `siliconflow` `openrouter` `ark` `stepfun` `kimi` `minimax` `modelscope` `nvidia` `novita`.
+See [Providers](#providers) for the full preset list.
 
 You can also use provider-specific env vars (e.g. `DASHSCOPE_API_KEY`, `OPENAI_API_KEY`) as fallback.
 
@@ -143,6 +188,44 @@ Replace `command` with `uvx`, `args` with `["--from", "/path/to/mcp-vision-serve
   "VISION_MODEL": "your-model"
 }
 ```
+
+## Architecture
+
+```text
+MCP Client (Claude Code / Codex / Cursor / Zed)
+        │
+        ▼
+mcp-vision-server
+        │
+        ├── mcp_vision_server/server.py     # MCP tool entrypoints
+        ├── mcp_vision_server/config.py     # env/provider/parameter resolution
+        ├── mcp_vision_server/image.py      # URL/file/base64 normalization
+        └── mcp_vision_server/providers.py  # provider presets
+        │
+        ▼
+OpenAI-compatible Vision API
+        │
+        ▼
+Vision model response
+```
+
+## FAQ
+
+### Why not call the vision provider directly?
+
+This server gives MCP clients a single, reusable vision tool. You can switch providers without changing client prompts, MCP tool names, or client-side integration code.
+
+### Can I use a provider that is not listed?
+
+Yes. Use manual configuration with `VISION_BASE_URL`, `VISION_API_KEY`, and `VISION_MODEL` for any OpenAI-compatible vision endpoint.
+
+### Can I override the provider per request?
+
+Yes. Use the `provider`, `base_url`, `api_key`, or `model` tool parameters to override environment-level configuration for a single call.
+
+### What image formats are supported?
+
+The server accepts image URLs, local file paths, and Base64 strings. Input type can be auto-detected or specified with `image_type`.
 
 ## Development
 
